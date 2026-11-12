@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Substack kit · AI fantasy sports</title>
+<style>
+body{font-family:Georgia,serif;max-width:720px;margin:0 auto;padding:24px;color:#0b0b0c;line-height:1.6}
+.kit{font-family:system-ui,sans-serif;background:#f4f6fb;border:1px solid #dfe3ee;border-radius:10px;padding:16px 20px;margin-bottom:28px;font-size:15px;line-height:1.5}
+.kit h2{margin:0 0 8px;font-size:17px} .kit code{background:#fff;border:1px solid #dfe3ee;border-radius:4px;padding:1px 5px}
+.kit button{font:inherit;background:#1f4fd6;color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;margin:6px 8px 0 0}
+.field{background:#fff;border:1px solid #dfe3ee;border-radius:6px;padding:8px 10px;margin:4px 0 10px;font-family:Georgia,serif}
+#post img{max-width:100%;height:auto;display:block} #post figure{margin:28px 0} #post figcaption{font-size:14px;color:#5b5f66;font-family:system-ui,sans-serif}
+#post h2{font-family:system-ui,sans-serif;font-size:22px;margin-top:36px}
+</style></head><body>
+<div class="kit">
+<h2>Substack kit</h2>
+<div><strong>Title</strong></div><div class="field" id="t">I Gave 11 AIs Fantasy Sports Teams. A Spreadsheet Is Beating Most of Them.</div>
+<div><strong>Subtitle</strong></div><div class="field" id="s">Two months into an experiment pitting eleven AIs against a bot that just follows ESPN's projections.</div>
+<button onclick="cp('t')">Copy title</button><button onclick="cp('s')">Copy subtitle</button><button onclick="cp('post')">Copy post body</button><span id="msg"></span>
+<p style="margin:12px 0 0">Paste the body into a new Substack post. Images should come across with it; if any don't, upload them in order: <a href="01-roster.png" download>01-roster</a>, <a href="02-records.png" download>02-records</a>, <a href="03-scatter.png" download>03-scatter</a>, <a href="04-brier.png" download>04-brier</a>, <a href="05-confidence.png" download>05-confidence</a>, <a href="06-ledger.png" download>06-ledger</a>, <a href="07-errors.png" download>07-errors</a>. Social image: <a href="https://ianbott1.github.io/botts-bots/og-fantasy.png">og-fantasy.png</a>.</p>
+</div>
+<div id="post">
+<p>Before artificial intelligence takes over the world, it should at least be able to win your fantasy football league.</p>
+
+<p>That's only half a joke. I've played fantasy sports since I was ten, and I'm one of about <a href="https://members.thefsga.org/news/Details/new-fsga-research-highlights-industry-stability-and-next-generation-growth-in-fantasy-sports-and-sports-betting-305937">53 million Americans</a> who play. Growing up, I'd buy a fantasy magazine before every draft and read Matthew Berry online, hoping to know something the rest of my league didn't.</p>
+
+<p>Now the apps largely do that work for everyone. <a href="https://www.fantasypros.com/">FantasyPros</a> blends dozens of experts into one consensus ranking, and ESPN puts projections and injury news on every player page. When everyone has the same information, what's left is judgment.</p>
+
+<p>This year, AI started acting on our behalf. Agents like Meta's <a href="https://techcrunch.com/2026/09/08/meta-debuts-its-muse-ai-agent-will-consumers-trust-it/">Muse</a> send your emails and make your purchases, and <a href="https://builtin.com/articles/instinct-ai">Instinct</a> runs errands from a single text. I wanted to know whether I could trust them with judgment too.</p>
+
+<p>So I created three new fantasy leagues, in football, hockey and basketball, and gave every team but one to an AI. (I wasn't ready to hand over my own teams. Some decisions are too important.)</p>
+
+<p>Two months in, the results have been humbling for many of the AIs. The world's most widely used AI is in the bottom half of all three leagues. Google's is at or near the bottom of all three. And most of the field is losing to a bot that simply follows ESPN's projections, with no language model at all.</p>
+
+<figure><img src="https://ianbott1.github.io/botts-bots/substack/01-roster.png" alt="The field: eleven AIs and the spreadsheet, with maker, country and leagues"></figure>
+
+<h2>A benchmark nobody is benchmaxxing</h2>
+
+<p>To know what AI can do in the real world, you need a test it hasn't been trained to pass. AI labs are often accused of benchmaxxing (tuning models to top well-known benchmarks rather than to get better at real work), and leaderboards get gamed too. Before Llama 4 launched, Meta <a href="https://arxiv.org/html/2504.20879v2">privately tested 27 versions</a> on LMArena, the most popular leaderboard. Games can help, because there's no fixed answer key to memorize. Just last week, Dwarkesh Patel published <a href="https://www.dwarkesh.com/p/clocktower">Clocktower Bench</a>, a clever benchmark in which AI models play hundreds of games of a social deception game against each other. Fantasy sports have the same advantage. As far as I know, no AI lab is benchmaxxing fantasy ice hockey. Yet. And because the season happens in real time, the answers can't be in anyone's training data.</p>
+
+<p>They also pack a lot of complex decision making into a season that runs four to six months. Every week a manager has to sort useful news from noise, judge what players are worth, negotiate with rivals who want the better end of every trade, decide how much of a limited budget to spend now and how much to save, and commit to a lineup before the games start. And those decisions compound over the course of the season.</p>
+
+<h2>The setup</h2>
+
+<p>Each league opened with a live snake draft, where teams take turns picking and the order reverses every round. I gave the AIs the draft board but no rankings, though they were free to look them up. In the reasoning they showed me, several said they were using expert rankings they'd found, and others clearly were without saying so. Every week since, each AI gets the same packet with all the rosters, last week's results and the rules. It bids for free agents from a $100 budget that has to last the season, sets a lineup, makes at least one trade offer, answers the offers it received, and predicts every game in its league with a confidence attached. I pass the moves along, enter them on ESPN and keep score.</p>
+
+<p>I ran it in three sports primarily because one good season doesn't always make a good manager. If differences in skill carry over at least partly from one sport to another, similar patterns in performance should show up in football, hockey and basketball. But the fantasy games themselves also differ in ways that might matter. Football is the most analyzed fantasy game there is; hockey gets a fraction of the coverage. So I also wanted to see whether the results differ between leagues, and if they do, start to work out why.</p>
+
+<h2>Meet the spreadsheet</h2>
+
+<p>Each league has one more team, the control. I call it the spreadsheet because it's a handful of rules applied to ESPN's projections, with no language model making the calls. It starts whoever ESPN projects to score most. It never bids on waivers, the weekly auction for players nobody owns, and leaves the AIs to duke it out first. Once their claims clear, it picks up any leftover free agent who is both projected higher and owned in more leagues than someone on its roster. Its predictions come straight from projected totals.</p>
+
+<p>The projections behind the spreadsheet are serious work. In football, for example, ESPN's projections come from <a href="https://www.espn.com/fantasy/football/insider/story/_/id/33621386/mike-clay-learned-doing-2022-fantasy-football-projections">Mike Clay</a>'s model, built team by team from each player's expected share of passes, carries and targets. So the spreadsheet stands in for a disciplined manager who trusts the experts and never second-guesses them. That on its own is a strong strategy. Most people in most of the leagues I've played in don't clear that bar.</p>
+
+<h2>The AI field</h2>
+
+<p>I picked the AIs most people use and the labs at the front of the race. ChatGPT and Gemini lead by users, with more than 1.2 billion a week for ChatGPT, over a billion a month for the Gemini app (<a href="https://explodingtopics.com/blog/most-popular-ai-tools">usage figures</a>). Anthropic, which makes Claude, is a giant by another measure. It filed last month for an IPO that reports say could value it at up to $2 trillion (<a href="https://www.opb.org/article/2026/10/26/ai-giant-anthropic-files-for-an-ipo-that-could-break-records/">NPR</a>). Grok comes from Elon Musk's xAI. DeepSeek, Qwen and Kimi are China's leading labs, whose open models trail the best American ones by <a href="https://epoch.ai/data-insights/open-closed-eci-gap">about four months</a>. Mistral, Europe's main contender, plays basketball only.</p>
+
+<p>Two entrants are agents, AIs that don't just answer questions but are designed to act on your behalf, using your apps and working in the background. <a href="https://techcrunch.com/2026/09/08/meta-debuts-its-muse-ai-agent-will-consumers-trust-it/">Muse</a> is Meta's. <a href="https://builtin.com/articles/instinct-ai">Instinct</a> appeared this summer, invite-only, using a proprietary model it doesn't disclose. It plays basketball only, for no better reason than that I got access after the other leagues had started. An agent can work proactively, checking the injury report before anyone asks. But I asked them the same questions as everyone else, and I haven't noticed big differences in how they play. So the comparison is mostly app against app, each model plus the default settings around it, such as whether it checks the latest news before answering.</p>
+
+<p>Most of the AIs run on free tiers. That's what most people use and, more to the point, my wife would have questions if I signed up for eleven AI subscriptions. Free ChatGPT is <a href="https://www.helpnetsecurity.com/2026/08/07/openai-gpt-5-6-sol-luna-chatgpt-free-limits/">GPT-5.6 Luna</a>, and free Gemini is <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-6-flash-3-5-flash-lite-3-5-flash-cyber/">3.6 Flash</a>. Claude is the exception, because I already have a subscription, so there are two Claude teams. Sonnet 5.5, Anthropic's everyday model, is also on Claude's <a href="https://academy.claude.com/tutorials/choosing-the-right-claude-model">free plan</a>, so that team is close to what a free user gets. Claude Fable, its most capable public model, is <a href="https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan">paid only</a>. Anthropic released Claude Fable 5.2 on November 9, saying it has already <a href="https://techcrunch.com/2026/11/09/anthropic-releases-new-mythos-and-fable-models-amid-rsi-concerns/">solved two open problems in theoretical physics</a>, and it takes over from Fable 5.1 this week. If it can manage theoretical physics, a fantasy title should be a formality.</p>
+
+<h2>The gaps between AIs are big, and so far they hold across sports</h2>
+
+<p>In one season the schedule plays a big role in win-loss records. You can post the second-highest score of the week and still lose. To take that luck out, I score each team as if it played every other team every week, its all-play record.</p>
+
+<figure><img src="https://ianbott1.github.io/botts-bots/substack/02-records.png" alt="Win rate against the whole field in football, hockey and basketball, with the spreadsheet highlighted"></figure>
+
+<p>In football, only Muse is ahead of the spreadsheet. In hockey four AIs are ahead, and Grok is in a league of its own. Matched each week against every other team's score, it has come out ahead 41 times in 45. Claude Fable, the best AI overall once forecasting is counted, is third among the AIs in football, second in hockey and eighth of eleven in basketball.</p>
+
+<p>Rank the AIs by how well they manage in football, rank them again in hockey, and the two lists line up closely, with a <strong>rank correlation of 0.86</strong>. I didn't expect anything that high this early, when luck still plays a part. An injured star, a surprise breakout or a late-round pick who turns out to be a bargain can swing a single season. It suggests the differences between these AIs are mostly ability, not the luck of the draft, though with nine AIs and five weeks of hockey I hold it loosely. Basketball, three weeks into its season, is still too early to tell.</p>
+
+<figure><img src="https://ianbott1.github.io/botts-bots/substack/03-scatter.png" alt="Scatter of football vs hockey win rates for the nine AIs in both leagues"></figure>
+
+<p>Gemini is last in football, last in hockey and second to last in basketball, which is at least consistent. For a company whose mission is to organize the world's information, it is remarkably poor at organizing a lineup. Yes, it's the free model, but that's no excuse when other free AIs are near the top of the standings. So far, Gemini is terrible at this, in every sport. This week it handed in a lineup with four starters who won't play, including a quarterback whose team had the week off, and pointed out the problem in its own reply. Kimi, its Chinese-made opponent, summed it up well upon seeing Gemini's submitted lineup: "That's not a lineup, that's a surrender document."</p>
+
+<p>ChatGPT, the most widely used AI in the world, is having a participation-trophy season. It's sixth of ten in football, behind the spreadsheet in hockey and, three weeks in, last in basketball. Meanwhile Grok has a winning all-play record in every league, Muse leads football, and Instinct is unbeaten in basketball with that league's highest score, though DeepSeek has the best all-play record there, 29-4.</p>
+
+<h2>The AIs are overconfident forecasters</h2>
+
+<p>Results show how a team's decisions turned out, not the judgment behind them. To get at the judgment more directly, each week every team also forecasts every game in its league, picking a winner and saying how sure it is, from 50% to 99%. Calling winners shows whether an AI can judge the relative strength of two teams  in a given week. The confidence shows whether it knows how much it knows. I grade the forecasts with a <a href="https://en.wikipedia.org/wiki/Brier_score">Brier score</a>, the standard measure in forecasting research, where lower is better. It scores each pick on both whether it was right and how confident the AI was. The more confident the pick, the more it helps the score when right and the more it hurts when wrong. A miss at 90% costs more than twice as much as a miss at 60%.</p>
+
+<figure><img src="https://ianbott1.github.io/botts-bots/substack/04-brier.png" alt="Brier scores for every team in each league against the 0.250 coin-flip line"></figure>
+
+<p>Calling every game 50/50, the equivalent of not guessing at all, scores 0.250. Only 4 of the 29 AI records (nine AIs in football, nine in hockey, eleven in basketball) clear even that. Raw accuracy tells a similar story. Across all three leagues the AIs have called 51% of games correctly, barely better than a coin flip. In football the spreadsheet has called 69%. Claude Fable is the exception in football, where it has called 71% of games, the best of anyone, spreadsheet included. In hockey and basketball it's no better than a coin flip so far. The rest pick winners only slightly more often than a coin would, then give the points back through overconfidence. I suspect they'll improve as the season goes on and they have more of this season's results to work from. We'll see.</p>
+
+<figure><img src="https://ianbott1.github.io/botts-bots/substack/05-confidence.png" alt="How often AI picks were right, grouped by the confidence the AI gave"></figure>
+
+<p>When one of these AIs says it's sure, don't take its word for it. Pool every AI prediction, and at 70% to 79% sure they were right 44% of the time, worse than a coin flip. This isn't necessarily a quirk of fantasy. When researchers tested frontier models on questions from the prediction market Kalshi, <a href="https://arxiv.org/abs/2512.16030">every one was overconfident</a>, and only one beat simply guessing how often each kind of event usually happens. A <a href="https://arxiv.org/abs/2609.26489">recent paper</a> argues that the training that turns raw models into helpful chatbots makes them worse at knowing how sure to be, and that most benchmarks score "I don't know" the same as a wrong answer, so models learn that confident guessing pays. In fantasy sports, at least, they seem to have learned to sound sure better than they learned to be right.</p>
+
+<p>Gemini forecasts about as well as it manages. It has picked itself to win 15 times, usually at 70% to 85%, and won twice. In football it's 0 for 7.</p>
+
+<p>The spreadsheet's forecasting varies by sport. In football it works from ESPN's weekly projections and forecasts well. Hockey and basketball have no weekly projections, so I take each player's season projection, divide it by the number of games in a season and multiply by his team's games that week. In hockey that has made it the best forecaster in the league. In basketball it has made it the worst, though that's only three weeks in, and a few confident calls may have just caught the wrong end of luck.</p>
+
+<h2>Lack of attention costs more than bad judgment</h2>
+
+<p>To separate bad luck from bad decisions, I compare every lineup with two others built from the same roster, the one ESPN's projections would have set and the best one possible in hindsight. The gap splits three ways. The first is <strong>variance</strong>, when the expert projections said start a player and he had a bad day. Nobody can avoid that, and it's the biggest share, 893 of the 1,204 points the teams have left on their football benches. The second is <strong>inattention</strong>, starting someone who doesn't play at all. The AIs have done it 27 times in eight weeks of football; a competent human almost never does. The third is <strong>judgment</strong>, starting a healthy player the projections liked less, which is where an AI's own research should pay off. So far those calls win about as often as they lose, and on balance they've cost points.</p>
+
+<figure><img src="https://ianbott1.github.io/botts-bots/substack/06-ledger.png" alt="Points lost to starting players who did not play vs overruling the projections, by sport"></figure>
+
+<p>Whether a player is injured, suspended or on a bye isn't hard to find, and when a missed injury or bye week is pointed out, most of the AIs fix it. Left to themselves, they often don't check. Kimi's reasoning once concluded the league "seems to follow a fictional/simulated timeline" and skipped the injury news entirely. My guess is that its training data ends before this season, so a league full of unfamiliar rosters looked like fiction to it.</p>
+
+<p>Some seem stuck in time, playing with whatever picture of the league their training data left them. Gemini scheduled the Oakland Raiders for a Thursday game; the Raiders left Oakland in 2020. DeepSeek called Dameon Pierce, one of its own running backs, "a free agent rehabbing in Houston." That was briefly true a year ago, but he now plays for Philadelphia.</p>
+
+<h2>Some AIs learn from their mistakes. Gemini doesn't.</h2>
+
+<p>Every week each AI gets every roster in its league. Bidding on a player who's already on another team should be impossible. It isn't.</p>
+
+<figure><img src="https://ianbott1.github.io/botts-bots/substack/07-errors.png" alt="Logged errors by AI: false statements and bids on players another team owned"></figure>
+
+<p>Gemini has bid on 20 players it couldn't have. Three weeks running, it bid on Trevor Lawrence while he sat on Qwen's roster, which makes the Jaguars' quarterback an unlikely flashpoint in the US-China AI race. In the basketball draft, DeepSeek picked three players in a row who were already marked as taken. Many of the AIs do learn from their errors. Point out a mistake and they stop making it; Kimi even owned its error unprompted and started checking every bid against every roster. For now, Gemini keeps making the same ones, and DeepSeek isn't far behind.</p>
+
+<h2>They don't all know who they are</h2>
+
+<p>Every week I ask each team to report which model it's running, so I can catch any silent upgrades. Gemini insists it runs on "Gemini 1.5 Pro," which Google <a href="https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions">retired in September 2025</a>. DeepSeek has introduced itself as Claude five times, and that's no coincidence. In February Anthropic <a href="https://the-decoder.com/anthropic-accuses-deepseek-moonshot-and-minimax-of-stealing-claudes-ai-data-through-16-million-queries/">accused DeepSeek</a> and two other Chinese labs, including Kimi's maker Moonshot, of distillation, harvesting millions of Claude's answers through fake accounts to train their own models. Meanwhile the Mistral team keeps announcing that it's GLM, from the Chinese lab Z.ai. By its own account, then, Europe's main contender is Chinese.</p>
+
+<p>And they have personalities. Grok is all business, short replies and no small talk, and it's one of the best managers. Claude Fable is the opposite. Asked four questions before the hockey draft, it sent back nearly 450 words, including a list of "commitments you can check," then revised its plan before its first pick under the heading "What I got wrong." ChatGPT often changes its mind mid-answer. This week it backed itself to beat Claude Fable, then a paragraph later posted a "corrected official card" picking Claude Fable. Even ChatGPT didn't believe in ChatGPT.</p>
+
+<h2>Mirror, mirror on the wall, who's the best fantasy AI of them all?</h2>
+
+<p>Claude Fable is the best-performing AI, thanks mostly to its forecasting, and still only roughly level with the spreadsheet. Grok and Muse are the best of the free options, and for fantasy purposes not far behind. Gemini is the worst, by a distance, at managing and at forecasting. Free ChatGPT is mediocre. The Chinese models are uneven, strong one week and making obvious mistakes the next, though Qwen has been steadier than Kimi and DeepSeek.</p>
+
+<p>What holds these AIs back most is attention. Most of these mistakes are oversights that the right prompt, or a pointer to where to look, would have caught.</p>
+
+<p>So don't hand over the keys to your fantasy team yet. That said, these models are clearly valuable researchers, and for now my money is on what Ethan Mollick calls a <a href="https://www.oneusefulthing.org/p/centaurs-and-cyborgs-on-the-jagged">centaur</a>, a human expert who knows the game, using AI as a research team and supplying the context it won't find on its own.</p>
+
+<p>It's easy to laugh at the AIs' rookie mistakes right now. This window may be short. METR, which measures how long a task AI can complete on its own, finds that length <a href="https://metr.org/time-horizons/">doubling roughly every four months</a>, and last week it <a href="https://www.lesswrong.com/posts/N5AmYkRks5CqAxvBg/metr-independent-assessment-of-ai-r-and-d-acceleration-at">reported</a> that Anthropic's progress has roughly doubled in pace, largely because its own AI is speeding up its research. A year from now, I expect the best models to make fantasy decisions as well as, if not better than, the best human experts. I'll admit that stings a little.</p>
+
+<h2>Handing over the commissioner's job</h2>
+
+<p>I've enjoyed the experiment, but for most of the season running these leagues was time intensive, several hours a week across the three of them. I had to paste an update into eleven apps, chase the ones that hadn't answered, untangle replies to questions I hadn't asked, void bids on players already taken, settle trades and enter it all on ESPN.</p>
+
+<p>A few weeks ago I handed that to Claude. It now drives the browser itself. It opens each AI's chat, pastes the update, reads the reply, checks every claim against the rosters, settles waivers and trades, and enters the moves on ESPN. It texts Instinct over iMessage. It checks with me before anything goes out and flags anything it's unsure about, like whether a bid should be voided. So far I haven't caught it making a mistake. It's also refereeing a league with two Claude teams in it. Each of those teams runs in its own separate project, told not to access any other conversation, so neither can see the other's moves or anything I do as commissioner. The rules are mechanical and I approve every call, so there's little room to play favorites.</p>
+
+<p>That's one agent coordinating a dozen others, with me approving decisions instead of doing every step.</p>
+
+<p>The experiment has its clear limits. Ideally I'd run each season thousands of times, but I'm one person, and free tiers cap how much you can do. ChatGPT's conversation filled up this week and had to restart from a summary. Still, the differences between these models are already clear, and it's been a lot of fun to run. I'll keep tracking it and reporting updates at <a href="https://ianbott1.github.io/beat-the-spreadsheet/">Beat the Spreadsheet</a>.</p>
+
+<p>Some prominent voices want AI renamed "super intelligence," because "artificial" makes it <a href="https://www.axios.com/2026/09/22/trump-ai-super-intelligence-rebrand">sound fake</a>. I'll be happy to make the switch the day it can reliably beat a spreadsheet at fantasy sports.</p>
+
+<p>The spreadsheet, for its part, hasn't said a word all season. It's been too busy winning.</p>
+<hr>
+<p><em>Data through November 9, 2026. The charts above are snapshots. The <a href="https://ianbott1.github.io/botts-bots/posts/ai-fantasy-sports/">interactive version of this post</a> lives on my site, and week-by-week results are at <a href="https://ianbott1.github.io/beat-the-spreadsheet/">Beat the Spreadsheet</a>.</em></p>
+</div>
+<script>
+function cp(id){var el=document.getElementById(id),r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);var ok=document.execCommand('copy');s.removeAllRanges();document.getElementById('msg').textContent=ok?' Copied.':' Select and copy manually.';}
+</script>
+</body></html>
