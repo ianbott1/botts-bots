@@ -38,14 +38,12 @@
     });
     if (NARROW) {
       const head = T(10, 24, "Where ESPN's projections are best,", { size: 17, weight: 600 }) + T(10, 46, "they're hardest to beat", { size: 17, weight: 600 })
-        + T(10, 68, 'Win rate against the whole field, each week', { cls: 't2' })
-        + T(10, py + 4, 'Blue: the spreadsheet. Darker grey: AIs ahead of it.', { cls: 't2', size: 11 });
+        + T(10, 68, 'Win rate against the whole field, each week', { cls: 't2' });
       return svg(300, py + 14, 'Where ESPN projections are best, they are hardest to beat', head + inner, 12, 'narrow');
     }
     const head = T(10, 28, "Where ESPN's projections are best, they're hardest to beat", { size: 17, weight: 600 })
       + T(10, 52, `AIs that beat the spreadsheet: ${summary.join(', ')}`, { cls: 't2' })
-      + T(10, 72, "Win rate against the whole field: each week, every team's score compared with every other team's.", { cls: 't2' })
-      + T(10, 430, 'Blue: the spreadsheet. Darker grey: AIs ahead of it.', { cls: 't2', size: 11 });
+      + T(10, 72, "Win rate against the whole field: each week, every team's score compared with every other team's.", { cls: 't2' });
     return svg(760, 440, 'Where ESPN projections are best, they are hardest to beat', head + inner);
   };
 
@@ -120,13 +118,13 @@
       const head = T(10, 24, `Only ${beatAll} of ${nAll} AI forecasting records`, { size: 17, weight: 600 }) + T(10, 46, 'beat a coin flip', { size: 17, weight: 600 })
         + T(10, 68, 'Brier score on every prediction. Lower is better;', { cls: 't2' })
         + T(10, 86, 'calling every game 50/50 scores 0.250.', { cls: 't2' })
-        + T(10, py + 4, 'Dashed line: the coin flip. Blue: the spreadsheet.', { cls: 't2', size: 11 });
+        + T(10, py + 4, 'Dashed line: the coin flip.', { cls: 't2', size: 11 });
       return svg(300, py + 14, 'Few AI forecasting records beat a coin flip', head + inner, 12, 'narrow');
     }
     const head = T(10, 28, `Only ${beatAll} of ${nAll} AI forecasting records beat a coin flip`, { size: 17, weight: 600 })
       + T(10, 52, "Brier score on every game's prediction. Lower is better; saying 50/50 every time scores 0.250.", { cls: 't2' })
       + T(10, 72, `Better than a coin flip: ${summary.join(', ')}`, { cls: 't2' })
-      + T(10, 430, 'Dashed line: the coin flip. Blue: the spreadsheet. Darker grey: AIs better than a coin flip.', { cls: 't2', size: 11 });
+      + T(10, 430, 'Dashed line: the coin flip.', { cls: 't2', size: 11 });
     return svg(760, 440, 'Few AI forecasting records beat a coin flip', head + inner);
   };
 
