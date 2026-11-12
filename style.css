@@ -86,3 +86,24 @@ svg .ref { stroke: #8a8f97; stroke-dasharray: 3 4; }
 .endnote p { font-family: var(--sans); font-size: 15px; color: var(--ink-2); margin: 0; padding-top: 20px; border-top: 1px solid var(--rule); }
 footer { max-width: 1120px; margin: 0 auto; padding: 28px; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 13px; color: var(--ink-2); display: flex; justify-content: space-between; }
 footer a { text-decoration: none; }
+
+/* Roster */
+figure.roster { margin: 2.6em -110px; padding: 28px 0 0; border-top: 1px solid var(--ink); }
+.roster-head { font-family: var(--sans); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; margin-bottom: 18px; }
+.roster .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--rule); }
+.team { display: flex; gap: 14px; align-items: flex-start; padding: 16px 14px 16px 0; border-bottom: 1px solid var(--rule); }
+.mono { flex: none; width: 40px; height: 40px; border-radius: 8px; background: var(--ink); color: #fff; font-family: var(--sans); font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; letter-spacing: -0.02em; }
+.team.sheet .mono { background: var(--blue); font-size: 20px; }
+.who { min-width: 0; font-family: var(--sans); }
+.nm { font-weight: 700; font-size: 16px; line-height: 1.25; }
+.mk { font-size: 13px; color: var(--ink-2); line-height: 1.4; margin-top: 2px; }
+.tag { display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; vertical-align: 2px; margin-left: 4px; border: 1px solid var(--rule); color: var(--ink-2); }
+.tag-paid { border-color: var(--ink); color: var(--ink); }
+.tag-agent { border-color: var(--blue-soft); color: var(--blue); }
+.tag-control { background: var(--blue); border-color: var(--blue); color: #fff; }
+.lgs { display: flex; gap: 6px; margin-top: 8px; }
+.lg { font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 999px; color: #b5b8be; border: 1px dashed #d6d8dc; }
+.lg.on { color: var(--ink); border: 1px solid var(--ink); }
+.roster figcaption { font-family: var(--sans); font-size: 13px; color: var(--ink-2); margin-top: 14px; }
+@media (max-width: 960px) { figure.roster { margin-left: 0; margin-right: 0; } .roster .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .roster .grid { grid-template-columns: 1fr; } }
