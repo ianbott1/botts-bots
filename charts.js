@@ -171,7 +171,7 @@
 
   // 5. Inattention vs judgment
   charts.ledger = () => {
-    const rows = [['Football',222.5,88.6],['Hockey',102.1,42.6],['Basketball',88.2,-6.9]];
+    const rows = [['Football',222.5,88.6],['Hockey',102.1,42.6],['Basketball',99.4,15.7]];
     if (NARROW) {
       const zero = 112, scale = 160 / 230, y0 = 120, gh = 82, xw = v => Math.abs(v) * scale;
       let g = `<rect x="10" y="78" width="11" height="11" rx="2" fill="var(--accent)"/>` + T(27, 88, 'Starting players who did not play')
