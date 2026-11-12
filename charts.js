@@ -1,7 +1,7 @@
 // Charts for "I Gave 11 AIs Fantasy Sports Teams". Data through 9 Nov 2026.
 (function () {
   const BASE = (document.currentScript && document.currentScript.src || '').replace(/charts\.js.*$/, '') + 'logos/';
-  const LOGO = {'Claude Fable':'anthropic','Claude Sonnet':'anthropic','Muse':'muse','Qwen':'qwen','Grok':'grok','Kimi':'kimi','ChatGPT':'chatgpt','DeepSeek':'deepseek','Gemini':'gemini','Spreadsheet':'espn'};
+  const LOGO = {'Claude Fable':'anthropic','Claude Sonnet':'anthropic','Muse':'muse','Qwen':'qwen','Grok':'grok','Kimi':'kimi','ChatGPT':'chatgpt','DeepSeek':'deepseek','Gemini':'gemini','Spreadsheet':'espn','Mistral':'mistral','Instinct':'instinct'};
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const T = (x, y, s, o = {}) => `<text x="${x}" y="${y}"${o.cls ? ` class="${o.cls}"` : ' class="t1"'}${o.size ? ` font-size="${o.size}"` : ''}${o.weight ? ` font-weight="${o.weight}"` : ''}${o.anchor ? ` text-anchor="${o.anchor}"` : ''}${o.fill ? ` style="fill:${o.fill}"` : ''}>${esc(s)}</text>`;
   const svg = (w, h, label, inner, size = 12) => `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}" font-size="${size}">${inner}</svg>`;
@@ -146,14 +146,16 @@
       + `<rect x="290" y="68" width="12" height="12" rx="2" fill="var(--cat-2)"/>` + T(308, 79, 'Bid on a player another team already owned');
     rows.forEach((r, i) => {
       const y = y0 + i * rh;
-      g += T(left - 10, y + 15, r.leagues === 1 ? `${r.team} (basketball only)` : r.team, { anchor: 'end' });
+      g += T(left - 34, y + 15, r.leagues === 1 ? `${r.team} (basketball only)` : r.team, { anchor: 'end' });
+      g += `<rect x="${left - 27}" y="${y - 1}" width="22" height="22" rx="5" fill="#fff" stroke="#e4e5e8"/><image href="${BASE}${LOGO[r.team]}.png" x="${left - 26}" y="${y}" width="20" height="20" style="clip-path: inset(0 round 4px)"/>`;
       g += `<rect x="${left}" y="${y}" width="${r.facts * scale}" height="20" fill="var(--cat-3)"><title>${esc(r.team)}: ${r.facts} false statements of fact</title></rect>`;
       g += `<rect x="${left + r.facts * scale}" y="${y}" width="${r.voids * scale}" height="20" fill="var(--cat-2)"><title>${esc(r.team)}: ${r.voids} void waiver claims</title></rect>`;
       g += T(left + r.tot * scale + 6, y + 15, r.tot, { cls: 't2' });
     });
-    const head = T(20, 30, `${worst.team} has made ${worst.tot} of these mistakes. The two Claude models have made ${anth} between them.`, { size: 17, weight: 600 })
-      + T(20, 54, 'Logged errors across all three leagues, by AI', { cls: 't2' });
-    return svg(760, 440, 'Invented facts and void claims by AI', head + g, 13);
+    const head = T(20, 30, `${worst.team} has made ${worst.tot} of these mistakes.`, { size: 17, weight: 600 })
+      + T(20, 52, `The two Claude models have made ${anth} between them.`, { size: 17, weight: 600 })
+      + T(20, 76, 'Logged errors across all three leagues, by AI', { cls: 't2' });
+    return svg(760, 462, 'Invented facts and void claims by AI', head + `<g transform="translate(0,22)">${g}</g>`, 13);
   };
 
   document.querySelectorAll('[data-chart]').forEach(el => {
