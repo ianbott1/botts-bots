@@ -37,14 +37,14 @@
       });
     });
     if (NARROW) {
-      const head = T(10, 24, "Where ESPN's projections are best,", { size: 17, weight: 600 }) + T(10, 46, "they're hardest to beat", { size: 17, weight: 600 })
+      const head = T(10, 24, 'The spreadsheet is hardest', { size: 17, weight: 600 }) + T(10, 46, 'to beat in football', { size: 17, weight: 600 })
         + T(10, 68, 'Win rate against the whole field, each week', { cls: 't2' });
-      return svg(300, py + 14, 'Where ESPN projections are best, they are hardest to beat', head + inner, 12, 'narrow');
+      return svg(300, py + 14, 'The spreadsheet is hardest to beat in football', head + inner, 12, 'narrow');
     }
-    const head = T(10, 28, "Where ESPN's projections are best, they're hardest to beat", { size: 17, weight: 600 })
+    const head = T(10, 28, 'The spreadsheet is hardest to beat in football', { size: 17, weight: 600 })
       + T(10, 52, `AIs that beat the spreadsheet: ${summary.join(', ')}`, { cls: 't2' })
       + T(10, 72, "Win rate against the whole field: each week, every team's score compared with every other team's.", { cls: 't2' });
-    return svg(760, 440, 'Where ESPN projections are best, they are hardest to beat', head + inner);
+    return svg(760, 440, 'The spreadsheet is hardest to beat in football', head + inner);
   };
 
   // 2. Football vs hockey scatter
