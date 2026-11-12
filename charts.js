@@ -103,7 +103,7 @@
       const beat = ais.filter(r => r.b < coin).length; beatAll += beat; nAll += ais.length;
       summary.push(`${sport.toLowerCase()} ${beat} of ${ais.length}`);
       const x0 = NARROW ? 10 : 10 + i * pw, y0 = NARROW ? py + 20 : 118, xs = v => x0 + lab + v * scale;
-      inner += T(x0, y0 - 16, NARROW ? `${sport} (${games} games) · ${beat} of ${ais.length} AIs beat it` : `${sport} (${games} games)`, { weight: 600 });
+      inner += T(x0, y0 - 16, NARROW ? `${sport} (${games} games) · ${beat} of ${ais.length} AIs under 0.250` : `${sport} (${games} games)`, { weight: 600 });
       py = y0 + list.length * rh + 24;
       inner += `<line x1="${xs(coin)}" x2="${xs(coin)}" y1="${y0 - 6}" y2="${y0 + list.length * rh}" class="ref"/>`;
       list.forEach((r, j) => {
@@ -123,7 +123,7 @@
     }
     const head = T(10, 28, `Only ${beatAll} of ${nAll} AI forecasting records beat calling every game a coin flip`, { size: 17, weight: 600 })
       + T(10, 52, "Brier score on every game's prediction. Lower is better; saying 50/50 every time scores 0.250.", { cls: 't2' })
-      + T(10, 72, `Better than 50/50: ${summary.join(', ')}`, { cls: 't2' })
+      + T(10, 72, `AIs under 0.250: ${summary.join(', ')}`, { cls: 't2' })
       + T(10, 430, 'Dashed line: calling every game a coin flip.', { cls: 't2', size: 11 });
     return svg(760, 440, 'Few AI forecasting records beat calling every game a coin flip', head + inner);
   };
