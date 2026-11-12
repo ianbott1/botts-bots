@@ -103,7 +103,7 @@
       const beat = ais.filter(r => r.b < coin).length; beatAll += beat; nAll += ais.length;
       summary.push(`${sport.toLowerCase()} ${beat} of ${ais.length}`);
       const x0 = NARROW ? 10 : 10 + i * pw, y0 = NARROW ? py + 20 : 118, xs = v => x0 + lab + v * scale;
-      inner += T(x0, y0 - 16, NARROW ? `${sport} (${games} games) · ${beat} of ${ais.length} AIs under 0.250` : `${sport} (${games} games)`, { weight: 600 });
+      inner += T(x0, y0 - 16, NARROW ? `${sport} · ${beat} of ${ais.length} AIs under 0.250` : `${sport} (${games} games)`, { weight: 600 });
       py = y0 + list.length * rh + 24;
       inner += `<line x1="${xs(coin)}" x2="${xs(coin)}" y1="${y0 - 6}" y2="${y0 + list.length * rh}" class="ref"/>`;
       list.forEach((r, j) => {
