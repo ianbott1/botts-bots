@@ -115,17 +115,17 @@
       });
     });
     if (NARROW) {
-      const head = T(10, 24, `Only ${beatAll} of ${nAll} AI forecasting records`, { size: 17, weight: 600 }) + T(10, 46, 'beat calling every game 50/50', { size: 17, weight: 600 })
+      const head = T(10, 24, `Only ${beatAll} of ${nAll} AI forecasting records`, { size: 17, weight: 600 }) + T(10, 46, 'beat calling every game a coin flip', { size: 17, weight: 600 })
         + T(10, 68, 'Brier score on every prediction. Lower is better;', { cls: 't2' })
         + T(10, 86, 'saying 50/50 every time scores 0.250.', { cls: 't2' })
-        + T(10, py + 4, 'Dashed line: 50/50 on every game.', { cls: 't2', size: 11 });
-      return svg(300, py + 14, 'Few AI forecasting records beat calling every game 50/50', head + inner, 12, 'narrow');
+        + T(10, py + 4, 'Dashed line: calling every game a coin flip.', { cls: 't2', size: 11 });
+      return svg(300, py + 14, 'Few AI forecasting records beat calling every game a coin flip', head + inner, 12, 'narrow');
     }
-    const head = T(10, 28, `Only ${beatAll} of ${nAll} AI forecasting records beat calling every game 50/50`, { size: 17, weight: 600 })
+    const head = T(10, 28, `Only ${beatAll} of ${nAll} AI forecasting records beat calling every game a coin flip`, { size: 17, weight: 600 })
       + T(10, 52, "Brier score on every game's prediction. Lower is better; saying 50/50 every time scores 0.250.", { cls: 't2' })
       + T(10, 72, `Better than 50/50: ${summary.join(', ')}`, { cls: 't2' })
-      + T(10, 430, 'Dashed line: 50/50 on every game.', { cls: 't2', size: 11 });
-    return svg(760, 440, 'Few AI forecasting records beat calling every game 50/50', head + inner);
+      + T(10, 430, 'Dashed line: calling every game a coin flip.', { cls: 't2', size: 11 });
+    return svg(760, 440, 'Few AI forecasting records beat calling every game a coin flip', head + inner);
   };
 
   // 4. Confidence vs accuracy
