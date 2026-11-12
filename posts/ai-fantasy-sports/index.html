@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ianbott1.github.io/botts-bots/og-fantasy.png">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../../style.css?v=10">
+<link rel="stylesheet" href="../../style.css?v=11">
 </head>
 <body>
 <header class="masthead">
@@ -169,6 +169,35 @@
 <p>The spreadsheet, for its part, hasn't said a word all season. It's been too busy winning.</p>
 </article>
 
+<div class="share" id="share">
+  <span class="share-label">Share</span>
+  <button type="button" class="share-native" hidden>Share…</button>
+  <a class="share-x" target="_blank" rel="noopener">X</a>
+  <a class="share-li" target="_blank" rel="noopener">LinkedIn</a>
+  <a class="share-mail">Email</a>
+  <button type="button" class="share-copy">Copy link</button>
+</div>
+<script>
+(function(){
+  var url = 'https://ianbott1.github.io/botts-bots/posts/ai-fantasy-sports/';
+  var title = document.title.replace(/ \u00b7 .*$/, '').replace(/ [|\u2013-] Bott.*$/, '');
+  var box = document.getElementById('share'); if (!box) return;
+  var e = encodeURIComponent;
+  box.querySelector('.share-x').href = 'https://x.com/intent/post?text=' + e(title) + '&url=' + e(url);
+  box.querySelector('.share-li').href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + e(url);
+  box.querySelector('.share-mail').href = 'mailto:?subject=' + e(title) + '&body=' + e(url);
+  var copy = box.querySelector('.share-copy');
+  copy.addEventListener('click', function(){
+    var done = function(){ copy.textContent = 'Copied'; setTimeout(function(){ copy.textContent = 'Copy link'; }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, function(){}); 
+  });
+  var nat = box.querySelector('.share-native');
+  if (navigator.share && matchMedia('(max-width: 600px)').matches) {
+    nat.hidden = false;
+    nat.addEventListener('click', function(){ navigator.share({ title: title, url: url }).catch(function(){}); });
+  }
+})();
+</script>
 <div class="endnote"><p>Data through November 9, 2026. Week-by-week results live at <a href="https://ianbott1.github.io/beat-the-spreadsheet/">Beat the Spreadsheet</a>.</p></div>
 
 <footer><span>© 2026 Ian Bott</span><a href="../../">More from Bott's Bots</a></footer>

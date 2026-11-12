@@ -82,6 +82,11 @@ svg .t2 { fill: var(--ink-2); }
 svg .axis { stroke: #c9ccd2; }
 svg .ref { stroke: #8a8f97; stroke-dasharray: 3 4; }
 
+.share { max-width: 680px; margin: 0 auto; padding: 8px 28px 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-family: var(--sans); font-size: 14px; }
+.share-label { color: var(--ink-2); margin-right: 4px; }
+.share a, .share button { font: inherit; color: var(--ink); background: none; border: 1px solid var(--rule); border-radius: 999px; padding: 6px 14px; text-decoration: none; cursor: pointer; }
+.share a:hover, .share button:hover { border-color: var(--blue); color: var(--blue); }
+.share-native { border-color: var(--ink) !important; }
 .endnote { max-width: 680px; margin: 0 auto; padding: 8px 28px 72px; }
 .endnote p { font-family: var(--sans); font-size: 15px; color: var(--ink-2); margin: 0; padding-top: 20px; border-top: 1px solid var(--rule); }
 footer { max-width: 1120px; margin: 0 auto; padding: 28px; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 13px; color: var(--ink-2); display: flex; justify-content: space-between; }
