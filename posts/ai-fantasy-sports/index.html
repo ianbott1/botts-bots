@@ -70,7 +70,7 @@
 
 <h2>The setup</h2>
 
-<p>Each league opened with a live snake draft, where teams take turns picking and the order reverses every round. I gave the AIs the draft board but no rankings, though they were free to look them up. In their visible reasoning, several explicitly leaned on expert rankings they found, and others clearly did so implicitly. Every week since, each AI gets the same packet with all the rosters, last week's results and the rules. It bids for free agents from a $100 budget that has to last the season, sets a lineup, makes at least one trade offer, answers the offers it received, and predicts every game in its league with a confidence attached. I pass the moves along, enter them on ESPN and keep score.</p>
+<p>Each league opened with a live snake draft, where teams take turns picking and the order reverses every round. I gave the AIs the draft board but no rankings, though they were free to look them up. In the reasoning they showed me, several said they were using expert rankings they'd found, and others clearly were without saying so. Every week since, each AI gets the same packet with all the rosters, last week's results and the rules. It bids for free agents from a $100 budget that has to last the season, sets a lineup, makes at least one trade offer, answers the offers it received, and predicts every game in its league with a confidence attached. I pass the moves along, enter them on ESPN and keep score.</p>
 
 <p>I ran it in three sports primarily because one good season doesn't always make a good manager. If differences in skill carry over at least partly from one sport to another, similar patterns in performance should show up in football, hockey and basketball. At the same time, the fantasy games themselves differ in ways that might matter. Football is the most analyzed fantasy game there is; hockey gets a fraction of the coverage. So I also wanted to see whether the results differ between leagues, and if they do, start to work out why.</p>
 
@@ -94,7 +94,7 @@
 
 <figure class="chart" data-chart="records"></figure>
 
-<p>In football, where the projections are best, only Muse is ahead of the spreadsheet. In hockey four AIs are ahead, and Grok is in a league of its own. Its weekly score has beaten another team's 41 times in 45.</p>
+<p>In football, where the projections are best, only Muse is ahead of the spreadsheet. In hockey four AIs are ahead, and Grok is in a league of its own. Matched each week against every other team's score, it has come out ahead 41 times in 45.</p>
 
 <p>Rank the AIs by how well they manage in football, rank them again in hockey, and the two lists line up closely, with a <strong>rank correlation of 0.86</strong>. I didn't expect anything that high, especially this early, when luck plays a big part. An injured star, a surprise breakout or a late-round pick who turns out to be a bargain can swing a single season. It suggests the differences between these AIs are mostly ability, not the luck of the draft, though with nine AIs and five weeks of hockey I hold it loosely. Basketball, three weeks into its season, is still too early to tell.</p>
 
@@ -106,11 +106,11 @@
 
 <h2>The AIs forecast with confidence, not accuracy</h2>
 
-<p>Results show how a team's decisions turned out, not the judgment behind them. To get at the judgment more directly, each week every team also forecasts every game in its league, picking a winner and saying how sure it is, from 50% to 99%. Calling winners shows whether an AI can judge the relative strength of two teams in a given week, which is most of what managing is. The confidence shows whether it knows how much it knows. I grade the forecasts with a <a href="https://en.wikipedia.org/wiki/Brier_score">Brier score</a>, the standard measure in forecasting research, which scores each pick on both whether it was right and how confident the AI was. The more confident the pick, the more it helps the score when right and the more it hurts when wrong. A miss at 90% costs more than twice as much as a miss at 60%.</p>
+<p>Results show how a team's decisions turned out, not the judgment behind them. To get at the judgment more directly, each week every team also forecasts every game in its league, picking a winner and saying how sure it is, from 50% to 99%. Calling winners shows whether an AI can judge the relative strength of two teams in a given week, which is most of what managing is. The confidence shows whether it knows how much it knows. I grade the forecasts with a <a href="https://en.wikipedia.org/wiki/Brier_score">Brier score</a>, the standard measure in forecasting research, where lower is better. It scores each pick on both whether it was right and how confident the AI was. The more confident the pick, the more it helps the score when right and the more it hurts when wrong. A miss at 90% costs more than twice as much as a miss at 60%.</p>
 
 <figure class="chart" data-chart="brier"></figure>
 
-<p>Calling every game 50/50 scores 0.250, the minimal bar. Only 4 of 29 AI records clear even that. Raw accuracy tells a similar story. Across all three leagues the AIs have called 51% of games correctly, barely better than a coin flip. In football the spreadsheet has called 69%. Claude Fable is the exception, the best forecaster in the experiment and at 71% in football the best of anyone, spreadsheet included. The rest pick winners only slightly more often than a coin would, then give the points back through overconfidence. I suspect they'll improve as the season goes on and they have more of this season's results to work from. We'll see.</p>
+<p>Calling every game 50/50 scores 0.250, the minimal bar. Only 4 of the 29 AI records (nine AIs in football, nine in hockey, eleven in basketball) clear even that. Raw accuracy tells a similar story. Across all three leagues the AIs have called 51% of games correctly, barely better than a coin flip. In football the spreadsheet has called 69%. Claude Fable is the exception, the best forecaster in the experiment and at 71% in football the best of anyone, spreadsheet included. The rest pick winners only slightly more often than a coin would, then give the points back through overconfidence. I suspect they'll improve as the season goes on and they have more of this season's results to work from. We'll see.</p>
 
 <figure class="chart" data-chart="confidence"></figure>
 
@@ -118,7 +118,7 @@
 
 <p>Gemini forecasts about as well as it manages. It has picked itself to win 15 times, usually at 70% to 85%, and won twice. In football it's 0 for 7.</p>
 
-<p>The spreadsheet's record shows how much depends on its inputs. With ESPN's weekly football projections, it forecasts well. Hockey and basketball have no weekly projections, so I scale ESPN's season projections down to the week. In hockey that has made it the best forecaster in the league. In basketball it has made it the worst, though that's only three weeks in, and a few confident calls that went the wrong way could just be bad luck.</p>
+<p>The spreadsheet's record shows how much depends on its inputs. With ESPN's weekly football projections, it forecasts well. Hockey and basketball have no weekly projections, so I take each player's season projection, divide it by the number of games in a season and multiply by his team's games that week. In hockey that has made it the best forecaster in the league. In basketball it has made it the worst, though that's only three weeks in, and a few confident calls that went the wrong way could just be bad luck.</p>
 
 <h2>Lack of attention costs more than bad judgment</h2>
 
