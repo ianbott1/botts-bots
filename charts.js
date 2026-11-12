@@ -97,7 +97,7 @@
     ].map(([sport, team, b]) => ({ sport, team, b }));
     const coin = 0.25, sports = [['Football', 35], ['Hockey', 25], ['Basketball', 18]];
     const pw = 250, rh = 24, lab = 114, scale = (NARROW ? 120 : 88) / 0.4;
-    let inner = '', summary = [], beatAll = 0, nAll = 0, py = NARROW ? 118 : 118;
+    let inner = '', summary = [], beatAll = 0, nAll = 0, py = NARROW ? 140 : 118;
     sports.forEach(([sport, games], i) => {
       const list = rows.filter(r => r.sport === sport), ais = list.filter(r => r.team !== 'Spreadsheet');
       const beat = ais.filter(r => r.b < coin).length; beatAll += beat; nAll += ais.length;
@@ -115,9 +115,9 @@
       });
     });
     if (NARROW) {
-      const head = T(10, 24, `Only ${beatAll} of ${nAll} AI forecasting records`, { size: 17, weight: 600 }) + T(10, 46, 'beat calling every game a coin flip', { size: 17, weight: 600 })
-        + T(10, 68, 'Brier score on every prediction. Lower is better;', { cls: 't2' })
-        + T(10, 86, 'saying 50/50 every time scores 0.250.', { cls: 't2' })
+      const head = T(10, 24, `Only ${beatAll} of ${nAll} AI forecasting records`, { size: 17, weight: 600 }) + T(10, 46, 'beat calling every game', { size: 17, weight: 600 }) + T(10, 68, 'a coin flip', { size: 17, weight: 600 })
+        + T(10, 90, 'Brier score on every prediction. Lower is better;', { cls: 't2' })
+        + T(10, 108, 'saying 50/50 every time scores 0.250.', { cls: 't2' })
         + T(10, py + 4, 'Dashed line: calling every game a coin flip.', { cls: 't2', size: 11 });
       return svg(300, py + 14, 'Few AI forecasting records beat calling every game a coin flip', head + inner, 12, 'narrow');
     }
