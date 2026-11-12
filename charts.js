@@ -7,6 +7,7 @@
   const svg = (w, h, label, inner, size = 12) => `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}" font-size="${size}">${inner}</svg>`;
   const SHEET = 'var(--sheet)', MUTED = 'var(--muted)';
 
+  const logo = (team, x, y, sz) => LOGO[team] ? `<image href="${BASE}${LOGO[team]}.png" x="${x}" y="${y}" width="${sz}" height="${sz}" style="clip-path: inset(0 round 4px)"/>` : '';
   const charts = {};
 
   // 1. League records vs the spreadsheet
@@ -17,7 +18,7 @@
       ['Basketball','DeepSeek',29,4],['Basketball','Spreadsheet',23,10],['Basketball','Mistral',23,10],['Basketball','Instinct',22,11],['Basketball','Qwen',18,15],['Basketball','Claude Sonnet',18,15],['Basketball','Grok',18,15],['Basketball','Kimi',16,17],['Basketball','Claude Fable',13,20],['Basketball','Muse',11,22],['Basketball','Gemini',5,28],['Basketball','ChatGPT',2,31]
     ].map(([sport, team, w, l]) => ({ sport, team, w, l, p: w / (w + l) }));
     const sports = [['Football', 8], ['Hockey', 5], ['Basketball', 3]];
-    const pw = 250, y0 = 118, rh = 24, lab = 96, bw = 100;
+    const pw = 250, y0 = 118, rh = 24, lab = 114, bw = 88;
     let inner = '', summary = [];
     sports.forEach(([sport, weeks], i) => {
       const list = rows.filter(r => r.sport === sport), sheet = list.find(r => r.team === 'Spreadsheet');
@@ -27,7 +28,8 @@
       inner += T(x0, y0 - 16, `${sport} (${weeks} weeks)`, { weight: 600 });
       list.forEach((r, j) => {
         const on = r === sheet || r.p > sheet.p, y = y0 + j * rh;
-        inner += T(x0 + lab - 6, y + 12, r.team, { anchor: 'end', cls: on ? 't1' : 't2', weight: r === sheet ? 600 : null });
+        inner += T(x0 + lab - 26, y + 12, r.team, { anchor: 'end', cls: on ? 't1' : 't2', weight: r === sheet ? 600 : null });
+        inner += logo(r.team, x0 + lab - 22, y - 1, 18);
         inner += `<rect x="${xs(0)}" y="${y}" width="${r.p * bw}" height="16" rx="2" fill="${r === sheet ? SHEET : MUTED}" fill-opacity="${on ? 1 : 0.45}"><title>${r.sport}, ${esc(r.team)}: ${r.w}-${r.l} against the field (${Math.round(r.p * 100)}%)</title></rect>`;
         inner += T(xs(r.p) + 4, y + 12, `${Math.round(r.p * 100)}%`, { cls: 't2', size: 11 });
       });
@@ -72,7 +74,7 @@
       ['Basketball','Muse',.254],['Basketball','Claude Fable',.259],['Basketball','Qwen',.259],['Basketball','ChatGPT',.259],['Basketball','DeepSeek',.289],['Basketball','Gemini',.296],['Basketball','Mistral',.306],['Basketball','Claude Sonnet',.308],['Basketball','Instinct',.312],['Basketball','Grok',.329],['Basketball','Kimi',.348],['Basketball','Spreadsheet',.383]
     ].map(([sport, team, b]) => ({ sport, team, b }));
     const coin = 0.25, sports = [['Football', 35], ['Hockey', 25], ['Basketball', 18]];
-    const pw = 250, y0 = 118, rh = 24, lab = 96, scale = 100 / 0.4;
+    const pw = 250, y0 = 118, rh = 24, lab = 114, scale = 88 / 0.4;
     let inner = '', summary = [], beatAll = 0, nAll = 0;
     sports.forEach(([sport, games], i) => {
       const list = rows.filter(r => r.sport === sport), ais = list.filter(r => r.team !== 'Spreadsheet');
@@ -83,9 +85,10 @@
       inner += `<line x1="${xs(coin)}" x2="${xs(coin)}" y1="${y0 - 6}" y2="${y0 + list.length * rh}" class="ref"/>`;
       list.forEach((r, j) => {
         const sheet = r.team === 'Spreadsheet', on = sheet || r.b < coin, y = y0 + j * rh;
-        inner += T(x0 + lab - 6, y + 12, r.team, { anchor: 'end', cls: on ? 't1' : 't2', weight: sheet ? 600 : null });
+        inner += T(x0 + lab - 26, y + 12, r.team, { anchor: 'end', cls: on ? 't1' : 't2', weight: sheet ? 600 : null });
+        inner += logo(r.team, x0 + lab - 22, y - 1, 18);
         inner += `<rect x="${xs(0)}" y="${y}" width="${r.b * scale}" height="16" rx="2" fill="${sheet ? SHEET : MUTED}" fill-opacity="${on ? 1 : 0.45}"><title>${r.sport}, ${esc(r.team)}: ${r.b.toFixed(3)}</title></rect>`;
-        inner += T(xs(0.4) + 36, y + 12, r.b.toFixed(3), { anchor: 'end', cls: 't2', size: 11 });
+        inner += T(xs(0.4) + 34, y + 12, r.b.toFixed(3), { anchor: 'end', cls: 't2', size: 11 });
       });
     });
     const head = T(10, 28, `Only ${beatAll} of ${nAll} AI forecasting records beat a coin flip`, { size: 17, weight: 600 })
