@@ -1,5 +1,7 @@
 // Charts for "I Gave 11 AIs Fantasy Sports Teams". Data through 9 Nov 2026.
 (function () {
+  const BASE = (document.currentScript && document.currentScript.src || '').replace(/charts\.js.*$/, '') + 'logos/';
+  const LOGO = {'Claude Fable':'anthropic','Claude Sonnet':'anthropic','Muse':'muse','Qwen':'qwen','Grok':'grok','Kimi':'kimi','ChatGPT':'chatgpt','DeepSeek':'deepseek','Gemini':'gemini','Spreadsheet':'espn'};
   const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const T = (x, y, s, o = {}) => `<text x="${x}" y="${y}"${o.cls ? ` class="${o.cls}"` : ' class="t1"'}${o.size ? ` font-size="${o.size}"` : ''}${o.weight ? ` font-weight="${o.weight}"` : ''}${o.anchor ? ` text-anchor="${o.anchor}"` : ''}${o.fill ? ` style="fill:${o.fill}"` : ''}>${esc(s)}</text>`;
   const svg = (w, h, label, inner, size = 12) => `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}" font-size="${size}">${inner}</svg>`;
@@ -40,7 +42,7 @@
   // 2. Football vs hockey scatter
   charts.scatter = () => {
     const rows = [
-      ['Claude Fable',46,26,27,18,-9,-6,'end'],['Muse',55,17,25,19,9,4,'start'],['Qwen',40,32,24,21,0,-11,'middle'],['Grok',48,24,41,4,9,4,'start'],['Kimi',36,36,16,29,9,9,'start'],['ChatGPT',37,35,19,26,9,-2,'start'],['Claude Sonnet',18,54,19,26,0,-10,'middle'],['DeepSeek',22,50,18,27,0,20,'middle'],['Gemini',7,65,12,32,9,4,'start'],['Spreadsheet',51,21,23,22,9,22,'start',true]
+      ['Claude Fable',46,26,27,18,-9,-6,'end'],['Muse',55,17,25,19,9,4,'start'],['Qwen',40,32,24,21,9,4,'start'],['Grok',48,24,41,4,9,4,'start'],['Kimi',36,36,16,29,9,9,'start'],['ChatGPT',37,35,19,26,9,-2,'start'],['Claude Sonnet',18,54,19,26,0,-10,'middle'],['DeepSeek',22,50,18,27,0,20,'middle'],['Gemini',7,65,12,32,9,4,'start'],['Spreadsheet',51,21,23,22,9,22,'start',true]
     ].map(([team, fw, fl, hw, hl, dx, dy, anchor, control]) => ({ team, fw, fl, hw, hl, dx, dy, anchor, control: !!control, f: 100 * fw / (fw + fl), h: 100 * hw / (hw + hl) }));
     const X = v => 100 + v * 6, Y = v => 400 - (v - 20) * 3.75;
     const ai = rows.filter(r => !r.control);
@@ -53,8 +55,9 @@
     g += T(92, Y(25) + 4, '25%', { anchor: 'end', cls: 't2' }) + T(92, Y(50) + 4, '50%', { anchor: 'end', cls: 't2' }) + T(92, Y(100) + 4, '100%', { anchor: 'end', cls: 't2' });
     g += T(400, 446, 'Football', { anchor: 'middle' }) + T(100, 88, 'Hockey');
     rows.forEach(r => {
-      g += `<circle cx="${X(r.f)}" cy="${Y(r.h)}" r="6" fill="${r.control ? SHEET : MUTED}" stroke="var(--ink-2)" stroke-opacity="0.4"><title>${esc(r.team)}: football ${r.fw}-${r.fl} (${r.f.toFixed(0)}%), hockey ${r.hw}-${r.hl} (${r.h.toFixed(0)}%)</title></circle>`;
-      g += T(X(r.f) + r.dx, Y(r.h) + r.dy, r.team, { anchor: r.anchor, weight: r.control ? 600 : null, fill: r.control ? SHEET : null });
+      const sz = 24, sx = r.anchor === 'start' ? 1.6 : r.anchor === 'end' ? 1.6 : 1, sy = r.anchor === 'middle' ? 1.7 : 1;
+      g += `<g><title>${esc(r.team)}: football ${r.fw}-${r.fl} (${r.f.toFixed(0)}%), hockey ${r.hw}-${r.hl} (${r.h.toFixed(0)}%)</title><rect x="${X(r.f) - sz / 2 - 1}" y="${Y(r.h) - sz / 2 - 1}" width="${sz + 2}" height="${sz + 2}" rx="6" fill="#fff" stroke="${r.control ? SHEET : '#d6d8dc'}"/><image href="${BASE}${LOGO[r.team]}.png" x="${X(r.f) - sz / 2}" y="${Y(r.h) - sz / 2}" width="${sz}" height="${sz}" preserveAspectRatio="xMidYMid meet" style="clip-path: inset(0 round 5px)"/></g>`;
+      g += T(X(r.f) + r.dx * sx, Y(r.h) + r.dy * sy, r.team, { anchor: r.anchor, weight: r.control ? 600 : null, fill: r.control ? SHEET : null });
     });
     const head = T(20, 30, 'AIs that manage well in football also manage well in hockey', { size: 18, weight: 600 })
       + T(20, 54, `Share of weekly matchups won against the whole field. Rank correlation across the ${ai.length} AIs: ${rho.toFixed(2)}`, { cls: 't2' });
