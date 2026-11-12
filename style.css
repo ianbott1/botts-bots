@@ -107,3 +107,4 @@ figure.roster { margin: 2.6em -110px; padding: 28px 0 0; border-top: 1px solid v
 .roster figcaption { font-family: var(--sans); font-size: 13px; color: var(--ink-2); margin-top: 14px; }
 @media (max-width: 960px) { figure.roster { margin-left: 0; margin-right: 0; } .roster .grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .roster .grid { grid-template-columns: 1fr; } }
+.team .logo { flex: none; width: 40px; height: 40px; border-radius: 9px; object-fit: contain; background: #fff; }
