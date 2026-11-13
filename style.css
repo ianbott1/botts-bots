@@ -114,3 +114,7 @@ figure.roster { margin: 2.6em -110px; padding: 28px 0 0; border-top: 1px solid v
 @media (max-width: 560px) { .roster .grid { grid-template-columns: 1fr; } }
 .team .logo { flex: none; width: 40px; height: 40px; border-radius: 9px; object-fit: contain; background: #fff; }
 @media (max-width: 600px) { figure.chart svg.narrow { min-width: 0; } }
+
+.masthead nav a.nav-sub{color:var(--blue)}
+.sub-cta{font-family:var(--sans);font-size:15px;color:var(--ink-2)}
+.sub-cta a{color:var(--blue);font-weight:600}
